@@ -1,0 +1,20 @@
+{
+    "name": "jose/gerenciador-financas",
+    "authors": [
+        {
+            "name": "José Felipe",
+            "email": "jose.felipe@kinghost.com.br"
+        }
+    ],
+    "require": {
+        "robmorgan/phinx": "0.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "JFin\\": "src/"
+        }
+    },
+    "require-dev": {
+        "fzaninotto/faker": "1.6.0"
+    }
+}

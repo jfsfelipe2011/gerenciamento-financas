@@ -1,0 +1,36 @@
+version: '2'
+services:
+  web:
+    build: .
+    container_name: gerenciador-financas
+    hostname: gerenciador-financas
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/var/www/html/:rw
+
+  mysql:
+    image: mysql/mysql-server:5.6
+    container_name: gerenciador-financas-mysql
+    hostname: gerenciador-financas-mysql
+    volumes:
+      - ./docs/sql:/docker-entrypoint-initdb.d
+      - /etc/localtime:/etc/localtime
+    environment:
+      - MYSQL_ROOT_PASSWORD=201125
+      - MYSQL_DATABASE=gerenciador_financas
+      - MYSQL_USER=gerenciador
+      - MYSQL_PASSWORD=gerenciador
+
+  composer:
+    image: composer/composer
+    network_mode: host
+    command: install --ignore-platform-reqs --prefer-dist -o
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./:/app
+
+networks:
+  default:
+    external:
+      name: jose
