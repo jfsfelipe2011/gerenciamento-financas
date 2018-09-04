@@ -3,7 +3,10 @@ MAINTAINER jfsfelipe2011@gmail.com
 
 COPY . /var/www/html/
 
-RUN apt-get update && apt-get install -y vim
+RUN apt-get update && apt-get install -y vim \
+    && a2enmod rewrite \
+    && a2enmod headers \
+    && a2enmod expires
 
 RUN docker-php-source extract \
     # do important things \

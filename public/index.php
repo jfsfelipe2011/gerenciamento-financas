@@ -11,8 +11,8 @@ $app = new Application($serviceContainer);
 
 $app->plugin(new RoutePlugin());
 
-$app->get('/', function() {
-	echo "Opa";
+$app->get('/teste', function() {
+	echo 'teste';
 });
 
 $app->start();
