@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace JFin;
+
+use JFin\Plugins\PluginInterface;
 
 class Application
 {
@@ -44,5 +47,15 @@ class Application
 		} else {
 			$this->serviceContainer->add($name, $service);
 		}
+	}
+
+	/**
+	 * [registra um plugin no container]
+	 * 
+	 * @param  PluginInterface $plugin [Interface para plugins]
+	 */
+	public function plugin(PluginInterface $plugin)
+	{
+		$plugin->register($this->serviceContainer);
 	}
 }
