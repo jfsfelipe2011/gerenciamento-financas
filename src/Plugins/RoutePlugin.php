@@ -36,7 +36,7 @@ class RoutePlugin implements PluginInterface
 			$matcher = $container->get('routing.matcher');
 			$request = $container->get(RequestInterface::class);
 			return $matcher->match($request);
-		})
+		});
 	}
 
 	/**

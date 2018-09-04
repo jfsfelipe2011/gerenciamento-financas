@@ -4,7 +4,7 @@ namespace JFin;
 
 use Xtreamwayz\Pimple\Container;
 
-class ClassName implements ServiceContainerInterface
+class ServiceContainer implements ServiceContainerInterface
 {
 	/**
 	 * [$container instancia de um container]

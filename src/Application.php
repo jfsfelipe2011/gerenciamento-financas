@@ -58,4 +58,18 @@ class Application
 	{
 		$plugin->register($this->serviceContainer);
 	}
+
+	public function get($path, $action, $name = null)
+	{
+		$routing = $this->service('routing');
+		$routing->get($name, $path, $action);
+		return $this;
+	}
+
+	public function start()
+	{
+		$route = $this->service('route');
+		$callable = $route->handler;
+		$callable();
+	}
 }
