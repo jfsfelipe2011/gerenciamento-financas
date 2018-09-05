@@ -4,6 +4,7 @@ use JFin\Application;
 use JFin\ServiceContainer;
 use JFin\Plugins\RoutePlugin;
 use JFin\Plugins\ViewPlugin;
+use JFin\Plugins\DbPlugin;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -14,6 +15,7 @@ $app = new Application($serviceContainer);
 
 $app->plugin(new RoutePlugin());
 $app->plugin(new ViewPlugin());
+$app->plugin(new DbPlugin());
 
 $app->get('/category-costs', function () use($app) {
     $view = $app->service('view.renderer');
