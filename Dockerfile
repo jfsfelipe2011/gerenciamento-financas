@@ -12,3 +12,7 @@ RUN docker-php-source extract \
     # do important things \
     && docker-php-source delete \
     && docker-php-ext-install pdo_mysql
+
+RUN mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/default.conf
+
+COPY ./config/000-default.conf /etc/apache2/sites-available/
