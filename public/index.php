@@ -5,8 +5,6 @@ use JFin\ServiceContainer;
 use JFin\Plugins\RoutePlugin;
 use JFin\Plugins\ViewPlugin;
 use JFin\Plugins\DbPlugin;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ServerRequestInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
