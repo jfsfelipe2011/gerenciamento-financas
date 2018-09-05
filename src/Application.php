@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace JFin;
 
 use JFin\Plugins\PluginInterface;
+use Psr\Http\Message\RequestInterface;
 
 class Application
 {
@@ -59,6 +60,14 @@ class Application
 		$plugin->register($this->serviceContainer);
 	}
 
+	/**
+	 * [Adiciona rotas do tipo get]
+	 * 
+	 * @param  string   $path   [caminho da rota]
+	 * @param  callable $action [ação executada pela rota]
+	 * @param  string 	$name   [nome da rota]
+	 * @return JFin\Application [Interface fluente]
+	 */
 	public function get($path, $action, $name = null)
 	{
 		$routing = $this->service('routing');
@@ -66,10 +75,25 @@ class Application
 		return $this;
 	}
 
+	/**
+	 * [Inicia a aplicação]
+	 */
 	public function start()
 	{
 		$route = $this->service('route');
+
+		$request = $this->service(RequestInterface::class);
+
+		if(!$route) {
+			echo "Page not found";
+			exit;
+		}
+
+		foreach ($route->attributes as $key => $value) {
+			$request = $request->withAttribute($key, $value);
+		}
+
 		$callable = $route->handler;
-		$callable();
+		$callable($request);
 	}
 }
