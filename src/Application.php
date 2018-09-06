@@ -78,6 +78,21 @@ class Application
 	}
 
 	/**
+	 * [Adiciona rotas do tipo post]
+	 * 
+	 * @param  string   $path   [caminho da rota]
+	 * @param  callable $action [ação executada pela rota]
+	 * @param  string 	$name   [nome da rota]
+	 * @return JFin\Application [Interface fluente]
+	 */
+	public function post($path, $action, $name = null)
+	{
+		$routing = $this->service('routing');
+		$routing->post($name, $path, $action);
+		return $this;
+	}
+
+	/**
 	 * [Gera uma nova resposta]
 	 * @param  ResponseInterface $response [Interface de Response]
 	 */
