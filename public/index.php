@@ -17,7 +17,13 @@ $app->plugin(new DbPlugin());
 
 $app->get('/category-costs', function () use($app) {
     $view = $app->service('view.renderer');
-    return $view->render('category-costs/list.html.twig');
+
+    $model = new \JFin\Models\CategoryCost();
+    $categories = $model->all();
+
+    return $view->render('category-costs/list.html.twig', [
+    	'categories' => $categories
+    ]);
 });
 
 
