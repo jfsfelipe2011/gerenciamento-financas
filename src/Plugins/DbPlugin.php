@@ -6,6 +6,7 @@ namespace JFin\Plugins;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Interop\Container\ContainerInterface;
 use JFin\Models\CategoryCost;
+use JFin\Models\User;
 use JFin\Repository\RepositoryFactory;
 use JFin\ServiceContainerInterface;
 
@@ -25,9 +26,16 @@ class DbPlugin implements PluginInterface
         $capsule->bootEloquent();
 
         $container->add('repository.factory', new RepositoryFactory());
+
         $container->addLazy(
             'category-cost.repository', function (ContainerInterface $container) {
                 return $container->get('repository.factory')->factory(CategoryCost::class);
+            }
+        );
+
+        $container->addLazy(
+            'user.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(User::class);
             }
         );
     }
