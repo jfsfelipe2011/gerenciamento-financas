@@ -31,4 +31,12 @@ interface RepositoryInterface
 	 * @param  int    $id [identificador do registro]
 	 */
 	public function delete(int $id);
+
+	/**
+	 * [Busca um registro]
+	 * 
+	 * @param  int    $id [identificador do registro]
+	 * @return Model      [Retorna um unico modelo]
+	 */
+	public function find(int $id);
 }

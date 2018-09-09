@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace JFin\Plugins;
 
-use JFin\ServiceContainerInterface;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Interop\Container\ContainerInterface;
+use JFin\Models\CategoryCost;
+use JFin\Repository\RepositoryFactory;
+use JFin\ServiceContainerInterface;
 
 class DbPlugin implements PluginInterface
 {
@@ -20,5 +23,12 @@ class DbPlugin implements PluginInterface
 
         $capsule->addConnection($config['development']);
         $capsule->bootEloquent();
+
+        $container->add('repository.factory', new RepositoryFactory());
+        $container->addLazy(
+            'category-cost.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(CategoryCost::class);
+            }
+        );
     }
 }

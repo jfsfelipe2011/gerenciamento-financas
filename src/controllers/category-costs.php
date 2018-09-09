@@ -1,79 +1,80 @@
 <?php
-
 use Psr\Http\Message\ServerRequestInterface;
-use \JFin\Models\CategoryCost;
+
 
 $app
-	// Listagem de categorias
-	->get('/category-costs', function () use ($app) {
-	    $view = $app->service('view.renderer');
+    ->get(
+        '/category-costs', function () use ($app) {
+            $view = $app->service('view.renderer');
+            $repository = $app->service('category-cost.repository');
 
-	    $categories = CategoryCost::all();
+            $categories = $repository->all();
+            return $view->render(
+                'category-costs/list.html.twig', [
+                'categories' => $categories
+                ]
+            );
+        }, 'category-costs.list'
+    )
+    ->get(
+        '/category-costs/new', function () use ($app) {
+            $view = $app->service('view.renderer');
+            return $view->render('category-costs/create.html.twig');
+        }, 'category-costs.new'
+    )
+    ->post(
+        '/category-costs/store', function (ServerRequestInterface $request) use ($app) {
+            $data = $request->getParsedBody();
+            $repository = $app->service('category-cost.repository');
 
-	    return $view->render('category-costs/list.html.twig', [
-	    	'categories' => $categories
-	    ]);
-	}, 'category-costs.list')
+            $repository->create($data);
+            return $app->route('category-costs.list');
+        }, 'category-costs.store'
+    )
+    ->get(
+        '/category-costs/{id}/edit', function (ServerRequestInterface $request) use ($app) {
+            $view = $app->service('view.renderer');
+            $repository = $app->service('category-cost.repository');
+            $id = $request->getAttribute('id');
 
-	// Formulário para criação de categorias
-	->get('/category-costs/new', function () use ($app) {
-		$view = $app->service('view.renderer');
-		return $view->render('category-costs/create.html.twig');
-	}, 'category-costs.new')
+            $category = $repository->find($id);
+            return $view->render(
+                'category-costs/edit.html.twig', [
+                'category' => $category
+                ]
+            );
+        }, 'category-costs.edit'
+    )
+    ->post(
+        '/category-costs/{id}/update', function (ServerRequestInterface $request) use ($app) {
+            $repository = $app->service('category-cost.repository');
+            $id = $request->getAttribute('id');
+            $data = $request->getParsedBody();
 
-	// Salva uma nova categoria
-	->post('/category-costs/store', function (ServerRequestInterface $request) use ($app) {
-		$data = $request->getParsedBody();
-		CategoryCost::create($data);
+            $repository->update($id, $data);
+            return $app->route('category-costs.list');
+        }, 'category-costs.update'
+    )
+    ->get(
+        '/category-costs/{id}/show', function (ServerRequestInterface $request) use ($app) {
+            $view = $app->service('view.renderer');
+            $repository = $app->service('category-cost.repository');
+            $id = $request->getAttribute('id');
 
-		return $app->route('category-costs.list');
-	}, 'category-costs.store')
+            $category = $repository->find($id);
+            return $view->render(
+                'category-costs/show.html.twig', [
+                'category' => $category
+                ]
+            );
+        }, 'category-costs.show'
+    )
+    ->get(
+        '/category-costs/{id}/delete', function (ServerRequestInterface $request) use ($app) {
+            $repository = $app->service('category-cost.repository');
+            $id = $request->getAttribute('id');
 
-	// Formulário de edição de categoria
-	->get('/category-costs/{id}/edit', function (ServerRequestInterface $request) use ($app) {
-		$view = $app->service('view.renderer');
-
-		$id = $request->getAttribute('id');
-		$category = CategoryCost::findOrFail($id);
-
-		return $view->render('category-costs/edit.html.twig', [
-			'category' => $category
-		]);
-	}, 'category-costs.edit')
-
-	// Atualiza uma categoria
-	->post('/category-costs/{id}/update', function (ServerRequestInterface $request) use ($app) {
-		$view = $app->service('view.renderer');
-
-		$id = $request->getAttribute('id');
-		$category = CategoryCost::findOrFail($id);
-
-		$data = $request->getParsedBody();
-		$category->fill($data);
-		$category->save();
-
-		return $app->route('category-costs.list');
-	}, 'category-costs.update')
-
-	// Mostra uma categoria
-	->get('/category-costs/{id}/show', function (ServerRequestInterface $request) use ($app) {
-		$view = $app->service('view.renderer');
-
-		$id = $request->getAttribute('id');
-		$category = CategoryCost::findOrFail($id);
-
-		return $view->render('category-costs/show.html.twig', [
-			'category' => $category
-		]);
-	}, 'category-costs.show')
-
-	// Deleta uma categoria
-	->get('/category-costs/{id}/delete', function (ServerRequestInterface $request) use ($app) {
-		$view = $app->service('view.renderer');
-
-		$id = $request->getAttribute('id');
-		$category = CategoryCost::findOrFail($id);
-		$category->delete();
-
-		return $app->route('category-costs.list');
-	}, 'category-costs.delete');
+            $repository->delete($id);
+            return $app->route('category-costs.list');
+        }, 'category-costs.delete'
+    );
