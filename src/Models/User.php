@@ -5,7 +5,7 @@ namespace JFin\Models;
 use Illuminate\Database\Eloquent\Model;
 use Jasny\Auth\User as JasnyUser;
 
-class User extends Model implements JasnyUser
+class User extends Model implements JasnyUser, UserInterface
 {
 	protected $fillable = [
 		'first_name',
@@ -52,5 +52,34 @@ class User extends Model implements JasnyUser
 	public function onLogout()
 	{
 		// not implements
+	}
+
+	/**
+	 * [Retorna o nome completo]
+	 * 
+	 * @return string [nome completo do usuário]
+	 */
+	public function getFullname()
+	{
+		return "{$this->first_name} {$this->last_name}";
+	}
+
+	/**
+	 * [Retorna o e-mail]
+	 * @return string [email do usuário]
+	 */
+	public function getEmail()
+	{
+		return $this->email;
+	}
+
+	/**
+	 * [Retorna o password]
+	 * 
+	 * @return string [password do usuário]
+	 */
+	public function getPassaword()
+	{
+		$this->password;
 	}
 }

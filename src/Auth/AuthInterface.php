@@ -32,4 +32,11 @@ interface AuthInterface
 	 * @return String           [senha criptografada]
 	 */
 	public function hashPassword(string $password);
+
+	/**
+	 * [Retorna informações do Usuário logado]
+	 * 
+	 * @return UserInterface|null [Interface de usuário ou null]
+	 */
+	public function user();
 }

@@ -42,7 +42,7 @@ class Auth implements AuthInterface
 	 */
 	public function check()
 	{
-		return $this->jasnyAuth->user() !== null;
+		return $this->user() !== null;
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Auth implements AuthInterface
 	 */
 	public function logout()
 	{
-
+		$this->jasnyAuth->logout();
 	}
 
 	/**
@@ -62,6 +62,16 @@ class Auth implements AuthInterface
 	public function hashPassword(string $password)
 	{
 		return $this->jasnyAuth->hashPassword($password);
+	}
+
+	/**
+	 * [Retorna informações do Usuário logado]
+	 * 
+	 * @return UserInterface|null [Interface de usuário ou null]
+	 */
+	public function user()
+	{
+		return $this->jasnyAuth->user();
 	}
 
 	/**
