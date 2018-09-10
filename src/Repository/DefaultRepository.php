@@ -84,7 +84,7 @@ class DefaultRepository implements RepositoryInterface
 	 * @param  bool   $failIfNotExists [deve falhar se não existir o registro ou não]
 	 * @return Model      			   [Retorna um unico modelo]
 	 */
-	public function find(int $id, $failIfNotExists = true)
+	public function find(int $id, bool $failIfNotExists = true)
     {
         return $failIfNotExists ? $this->model->findOrFail($id) : $this->model->find($id);
     }

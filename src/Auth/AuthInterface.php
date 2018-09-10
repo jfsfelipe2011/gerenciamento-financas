@@ -24,4 +24,12 @@ interface AuthInterface
 	 * [Desloga usuário na aplicação]
 	 */
 	public function logout();
+
+	/**
+	 * [Gera uma senha criptografada]
+	 * 
+	 * @param  string $password [senha de usuário]
+	 * @return String           [senha criptografada]
+	 */
+	public function hashPassword(string $password);
 }
