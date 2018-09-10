@@ -24,3 +24,17 @@ $app
 		$app->service('auth')->logout();
 		return $view->render('auth/login.html.twig');
 	}, 'auth.logout');
+
+$app->before(function() use ($app) {
+	$route = $app->service('route');
+	$auth = $app->service('auth');
+
+	$routesWhiteList = [
+		'auth.show_login_form',
+		'auth.login'
+	];
+
+	if (!in_array($route->name, $routesWhiteList) && !$auth->check()) {
+		return $app->route('auth.show_login_form');
+	}
+});

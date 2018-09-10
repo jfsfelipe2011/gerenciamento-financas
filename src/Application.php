@@ -18,6 +18,12 @@ class Application
 	private $serviceContainer;
 
 	/**
+	 * [barreiras para acesso a aplicação]
+	 * @var array
+	 */
+	private $before = [];
+
+	/**
 	 * [Injeção de dependencia de uma interface de Container de serviço]
 	 * 
 	 * @param ServiceContainerInterface $serviceContainer [Interface para container de serviço]
@@ -130,6 +136,36 @@ class Application
 	}
 
 	/**
+	 * [Armazena as barreiras de aplicação]
+	 * 
+	 * @param  callable $callback [função para a restrição]
+	 * @return JFin\Application [Interface fluente]
+	 */
+	public function before(callable $callback)
+	{
+		array_push($this->before, $callback);
+		return $this;
+	}
+
+	/**
+	 * [Executa as barreiras de aplicação]
+	 * 
+	 * @return ResponseInterface|null [Returna ou nao uma insterface de resposta]
+	 */
+	protected function runBefores()
+	{
+		foreach ($this->before as $callback) {
+		    $result = $callback($this->service(RequestInterface::class));
+
+		    if ($result instanceof ResponseInterface) {
+		    	return $result;
+		    }
+		}
+
+		return null;
+	}
+
+	/**
 	 * [Inicia a aplicação]
 	 */
 	public function start()
@@ -145,6 +181,13 @@ class Application
 
 		foreach ($route->attributes as $key => $value) {
 			$request = $request->withAttribute($key, $value);
+		}
+
+		$result = $this->runBefores();
+
+		if ($result) {
+			$this->emitResponse($result);
+			return;
 		}
 
 		$callable = $route->handler;
