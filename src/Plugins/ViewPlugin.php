@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace JFin\Plugins;
 
-use JFin\ServiceContainerInterface;
 use Interop\Container\ContainerInterface;
+use JFin\ServiceContainerInterface;
+use JFin\View\Twig\TwigGlobals;
 use JFin\View\ViewRenderer;
 
 class ViewPlugin implements PluginInterface
@@ -21,6 +22,9 @@ class ViewPlugin implements PluginInterface
 			$twig = new \Twig_Environment($loader);
 
 			$generator = $container->get('routing.generator');
+			$auth = $container->get('auth');
+
+			$twig->addExtension(new TwigGlobals($auth));
 
 			$twig->addFunction(new \Twig_SimpleFunction('route', 
 				function (string $name, array $params = []) use ($generator) {

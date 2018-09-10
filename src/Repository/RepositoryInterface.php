@@ -46,7 +46,7 @@ interface RepositoryInterface
 	 * 
 	 * @param  string $field [campo de busca]
 	 * @param  mixed  $value [valor da busca]
-	 * @return array  [registro que atendem a busca]
+	 * @return mixed  		 [registros que atendem a busca]
 	 */
 	public function findByField(string $field, $value);
 }
