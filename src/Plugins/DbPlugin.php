@@ -5,6 +5,7 @@ namespace JFin\Plugins;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Interop\Container\ContainerInterface;
+use JFin\Models\BillReceive;
 use JFin\Models\CategoryCost;
 use JFin\Models\User;
 use JFin\Repository\RepositoryFactory;
@@ -36,6 +37,12 @@ class DbPlugin implements PluginInterface
         $container->addLazy(
             'user.repository', function (ContainerInterface $container) {
                 return $container->get('repository.factory')->factory(User::class);
+            }
+        );
+
+        $container->addLazy(
+            'bill-receive.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(BillReceive::class);
             }
         );
     }

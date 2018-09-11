@@ -8,6 +8,7 @@ use JFin\Plugins\ViewPlugin;
 use JFin\ServiceContainer;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../src/helpers.php';
 
 
 // Gerendo um novo container de serviço
@@ -32,6 +33,7 @@ $app->plugin(new AuthPlugin());
 require_once __DIR__ . '/../src/controllers/category-costs.php';
 require_once __DIR__ . '/../src/controllers/users.php';
 require_once __DIR__ . '/../src/controllers/auth.php';
+require_once __DIR__ . '/../src/controllers/bill-receives.php';
 
 
 // Inicializa a aplicação
