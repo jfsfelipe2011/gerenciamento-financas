@@ -54,13 +54,19 @@ class DefaultRepository implements RepositoryInterface
 	/**
 	 * [Atualiza um registro]
 	 * 
-	 * @param  int    $id   [identificador do registro]
-	 * @param  array  $data [valores para a atualização]
-	 * @return  Model [instancia de modelo]
+	 * @param  int|array    $id   [identificador do registro]
+	 * @param  array  		$data [valores para a atualização]
+	 * @return Model 			  [instancia de modelo]
 	 */
-	public function update(int $id, array $data)
+	public function update($id, array $data)
 	{
-		$model = $this->find($id);
+		$model = null;
+		if (is_array($id)) {
+			$model = $this->findOneBy($id);
+		} else {
+			$model = $this->find($id);
+		}
+
         $model->fill($data);
         $model->save();
         return $model;
@@ -69,11 +75,17 @@ class DefaultRepository implements RepositoryInterface
 	/**
 	 * [Deleta um registro]
 	 * 
-	 * @param  int    $id [identificador do registro]
+	 * @param  int|array  $id [identificador do registro]
 	 */
-	public function delete(int $id)
+	public function delete($id)
 	{
-		$model = $this->find($id);
+		$model = null;
+		if (is_array($id)) {
+			$model = $this->findOneBy($id);
+		} else {
+			$model = $this->find($id);
+		}
+
         $model->delete();
 	}
 
@@ -99,5 +111,22 @@ class DefaultRepository implements RepositoryInterface
 	public function findByField(string $field, $value)
 	{
 		return $this->model->where($field, '=', $value)->get();
+	}
+
+	/**
+	 * [Busca os registros conforme criterio]
+	 * 
+	 * @param  array  $search [array de critérios]
+	 * @return mixed          [registros que atendem o critério]
+	 */
+	public function findOneBy(array $search)
+	{
+		$queryBuilder = $this->model;
+
+		foreach ($search as $field => $value) {
+			$queryBuilder = $queryBuilder->where($field, '=', $value);
+		}
+
+		return $queryBuilder->firstOrFail();
 	}
 }

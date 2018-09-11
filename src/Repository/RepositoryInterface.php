@@ -20,17 +20,17 @@ interface RepositoryInterface
 	/**
 	 * [Atualiza um registro]
 	 * 
-	 * @param  int    $id   [identificador do registro]
-	 * @param  array  $data [valores para a atualização]
+	 * @param  int|array    $id   [identificador do registro]
+	 * @param  array  		$data [valores para a atualização]
 	 */
-	public function update(int $id, array $data);
+	public function update($id, array $data);
 
 	/**
 	 * [Deleta um registro]
 	 * 
-	 * @param  int    $id [identificador do registro]
+	 * @param  int|array   $id [identificador do registro]
 	 */
-	public function delete(int $id);
+	public function delete($id);
 
 	/**
 	 * [Busca um registro]
@@ -42,11 +42,19 @@ interface RepositoryInterface
 	public function find(int $id, bool $failIfNotExists = true);
 
 	/**
-	 * [Busca um registro por um campo]
+	 * [Busca os registros por um campo]
 	 * 
 	 * @param  string $field [campo de busca]
 	 * @param  mixed  $value [valor da busca]
 	 * @return mixed  		 [registros que atendem a busca]
 	 */
 	public function findByField(string $field, $value);
+
+	/**
+	 * [Busca os registros conforme criterio]
+	 * 
+	 * @param  array  $search [array de critérios]
+	 * @return mixed          [registros que atendem o critério]
+	 */
+	public function findOneBy(array $search);
 }
