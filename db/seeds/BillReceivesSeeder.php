@@ -3,7 +3,7 @@
 use Faker\Provider\Base;
 use Phinx\Seed\AbstractSeed;
 
-class BillReceiveSeeder extends AbstractSeed
+class BillReceivesSeeder extends AbstractSeed
 {
     const NAMES = [
         'Salário',
