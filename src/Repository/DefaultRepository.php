@@ -60,13 +60,7 @@ class DefaultRepository implements RepositoryInterface
 	 */
 	public function update($id, array $data)
 	{
-		$model = null;
-		if (is_array($id)) {
-			$model = $this->findOneBy($id);
-		} else {
-			$model = $this->find($id);
-		}
-
+		$model = $this->findInternal($id);
         $model->fill($data);
         $model->save();
         return $model;
@@ -79,13 +73,7 @@ class DefaultRepository implements RepositoryInterface
 	 */
 	public function delete($id)
 	{
-		$model = null;
-		if (is_array($id)) {
-			$model = $this->findOneBy($id);
-		} else {
-			$model = $this->find($id);
-		}
-
+		$model = $this->findInternal($id);
         $model->delete();
 	}
 
@@ -128,5 +116,16 @@ class DefaultRepository implements RepositoryInterface
 		}
 
 		return $queryBuilder->firstOrFail();
+	}
+
+	/**
+	 * [Retorna o tipo de busca]
+	 * 
+	 * @param  int|array $id [identificador de registro]
+	 * @return Model 	     [instancia de modelo]
+	 */
+	protected function findInternal($id)
+	{
+		return is_array($id) ? $this->findOneBy($id) : $this->find($id);
 	}
 }
