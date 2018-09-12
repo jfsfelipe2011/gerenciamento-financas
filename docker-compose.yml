@@ -23,12 +23,16 @@ services:
       - MYSQL_PASSWORD=gerenciador
 
   composer:
-    image: composer/composer
+    image: composer:1.5
     network_mode: host
-    command: install --ignore-platform-reqs --prefer-dist -o
+    container_name: gerenciador-financas-composer
+    user: "${UID}:${UID}"
+    command: install --prefer-dist --optimize-autoloader --ignore-platform-reqs
     volumes:
-      - ~/.ssh:/root/.ssh
-      - ./:/app
+    - ./:/app
+    - ${HOME}:${HOME}
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
 
 networks:
   default:
