@@ -21,18 +21,30 @@ $app
     ->get(
         '/bill-pays/new', function () use ($app) {
             $view = $app->service('view.renderer');
-            return $view->render('bill-pays/create.html.twig');
+            $auth = $app->service('auth');
+
+            $repository = $app->service('category-cost.repository');
+            $categories = $repository->findByField('user_id', $auth->user()->getId());
+
+            return $view->render('bill-pays/create.html.twig', [
+                'categories' => $categories
+            ]);
         }, 'bill-pays.new'
     )
     ->post(
         '/bill-pays/store', function (ServerRequestInterface $request) use ($app) {
             $data = $request->getParsedBody();
             $repository = $app->service('bill-pay.repository');
+            $repositoryCategory = $app->service('category-cost.repository');
             $auth = $app->service('auth');
 
             $data['user_id'] = $auth->user()->getId();
             $data['date_lauch'] = dateParse($data['date_lauch']);
             $data['value'] = numberParse($data['value']);
+            $data['category_cost_id'] = $repositoryCategory->findOneBy([
+                'id'      => $data['category_cost_id'],
+                'user_id' => $auth->user()->getId()
+            ])->id;
 
             $repository->create($data);
             return $app->route('bill-pays.list');
@@ -49,9 +61,14 @@ $app
                 'id'      => $id,
                 'user_id' => $auth->user()->getId()
             ]);
+
+            $repositoryCategory = $app->service('category-cost.repository');
+            $categories = $repositoryCategory->findByField('user_id', $auth->user()->getId());
+
             return $view->render(
                 'bill-pays/edit.html.twig', [
-                'bill' => $bill
+                'bill' => $bill,
+                'categories' => $categories
                 ]
             );
         }, 'bill-pays.edit'
@@ -59,6 +76,7 @@ $app
     ->post(
         '/bill-pays/{id}/update', function (ServerRequestInterface $request) use ($app) {
             $repository = $app->service('bill-pay.repository');
+            $repositoryCategory = $app->service('category-cost.repository');
             $id = $request->getAttribute('id');
             $data = $request->getParsedBody();
             $auth = $app->service('auth');
@@ -66,6 +84,10 @@ $app
             $data['user_id'] = $auth->user()->getId();
             $data['date_lauch'] = dateParse($data['date_lauch']);
             $data['value'] = numberParse($data['value']);
+            $data['category_cost_id'] = $repositoryCategory->findOneBy([
+                'id'      => $data['category_cost_id'],
+                'user_id' => $auth->user()->getId()
+            ])->id;
 
             $repository->update([
                 'id'      => $id,

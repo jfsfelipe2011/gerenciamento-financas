@@ -14,6 +14,16 @@
         <input class="form-control" type="text" name="value" 
                placeholder="0.000,00" value="{{ bill.value | number_format(2, ',', '.') }}">
     </div>
+    <div class="form-group">
+        <label class="control-label">Categoria de Custo</label>
+        <select class="form-control" name="category_cost_id">
+            {% for category in categories %}
+                <option value="{{ category.id }}"
+                {{ bill.category_cost_id is not null and bill.category_cost_id == category.id ? 'selected="selected"' : ''}}
+                >{{ category.name }}</option>
+            {% endfor %}  
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary btn-block">
         <span class="glyphicon glyphicon-{{ submitIcon }}"></span>
     </button>

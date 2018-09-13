@@ -43,6 +43,10 @@
                                     <th scope="row">Nome</th>
                                     <td>{{ bill.value | number_format(2, ',', '.') }}</td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">Categoria de custo</th>
+                                    <td>{{ bill.categoryCost.name }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

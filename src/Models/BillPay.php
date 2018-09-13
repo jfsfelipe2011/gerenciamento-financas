@@ -3,6 +3,7 @@
 namespace JFin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use JFin\Models\CategoryCost;
 
 class BillPay extends Model
 {
@@ -17,4 +18,9 @@ class BillPay extends Model
 		'user_id',
 		'category_cost_id'
 	];
+
+	public function categoryCost()
+	{
+		return $this->belongsTo(CategoryCost::class);
+	}
 }
