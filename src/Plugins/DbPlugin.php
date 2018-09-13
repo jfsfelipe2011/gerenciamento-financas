@@ -10,6 +10,7 @@ use JFin\Models\BillReceive;
 use JFin\Models\CategoryCost;
 use JFin\Models\User;
 use JFin\Repository\RepositoryFactory;
+use JFin\Repository\StatementRepository;
 use JFin\ServiceContainerInterface;
 
 class DbPlugin implements PluginInterface
@@ -50,6 +51,12 @@ class DbPlugin implements PluginInterface
         $container->addLazy(
             'bill-pay.repository', function (ContainerInterface $container) {
                 return $container->get('repository.factory')->factory(BillPay::class);
+            }
+        );
+
+        $container->addLazy(
+            'statements.repository', function () {
+                return new StatementRepository();
             }
         );
     }
