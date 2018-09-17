@@ -36,6 +36,7 @@ require_once __DIR__ . '/../src/controllers/auth.php';
 require_once __DIR__ . '/../src/controllers/bill-receives.php';
 require_once __DIR__ . '/../src/controllers/bill-pays.php';
 require_once __DIR__ . '/../src/controllers/statements.php';
+require_once __DIR__ . '/../src/controllers/charts.php';
 
 
 // Inicializa a aplicação

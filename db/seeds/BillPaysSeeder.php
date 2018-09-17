@@ -35,7 +35,7 @@ class BillPaysSeeder extends AbstractSeed
             $userId = rand(1,4);
 
             $data[] = [
-                'date_lauch'        => $faker->dateTimeBetween('-1 month')->format('Y-m-d'),
+                'date_launch'        => $faker->dateTimeBetween('-1 month')->format('Y-m-d'),
                 'name'              => $faker->word,
                 'value'             => $faker->randomFloat(2, 10, 1000),
                 'user_id'           => $userId,

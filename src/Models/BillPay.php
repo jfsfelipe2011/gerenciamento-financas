@@ -12,7 +12,7 @@ class BillPay extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'date_lauch',
+		'date_launch',
 		'name',
 		'value',
 		'user_id',

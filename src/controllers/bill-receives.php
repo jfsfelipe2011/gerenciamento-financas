@@ -30,7 +30,7 @@ $app
             $auth = $app->service('auth');
 
             $data['user_id'] = $auth->user()->getId();
-            $data['date_lauch'] = dateParse($data['date_lauch']);
+            $data['date_launch'] = dateParse($data['date_launch']);
             $data['value'] = numberParse($data['value']);
 
             $repository->create($data);
@@ -63,7 +63,7 @@ $app
             $auth = $app->service('auth');
 
             $data['user_id'] = $auth->user()->getId();
-            $data['date_lauch'] = dateParse($data['date_lauch']);
+            $data['date_launch'] = dateParse($data['date_launch']);
             $data['value'] = numberParse($data['value']);
 
             $repository->update([

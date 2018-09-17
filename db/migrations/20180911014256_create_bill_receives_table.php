@@ -7,7 +7,7 @@ class CreateBillReceivesTable extends AbstractMigration
     public function up()
     {
         $this->table('bill_receives')
-            ->addColumn('date_lauch', 'date')
+            ->addColumn('date_launch', 'date')
             ->addColumn('name', 'string')
             ->addColumn('value', 'float')
             ->addColumn('user_id', 'integer')

@@ -35,7 +35,7 @@
                                 {% for bill in bills %}
                                     <tr>
                                         <td>{{ bill.id }}</td>
-                                        <td>{{ bill.date_lauch | date('d/m/Y') }}</td>
+                                        <td>{{ bill.date_launch | date('d/m/Y') }}</td>
                                         <td>{{ bill.name }}</td>
                                         <td>{{ 'R$ ' ~ bill.value | number_format(2, ',', '.') }}</td>
                                         <td>{{ bill.categoryCost.name }}</td>
