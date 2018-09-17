@@ -26,6 +26,8 @@ $app
         '/users/store', function (ServerRequestInterface $request) use ($app) {
             $data = $request->getParsedBody();
             $repository = $app->service('user.repository');
+            $auth = $app->service('auth');
+            $data['password'] = $auth->hashPassword($data['password']);
 
             $repository->create($data);
             return $app->route('users.list');
@@ -50,6 +52,10 @@ $app
             $repository = $app->service('user.repository');
             $id = $request->getAttribute('id');
             $data = $request->getParsedBody();
+
+            if (isset($data['password'])) {
+                unset($data['password']);
+            }
 
             $repository->update($id, $data);
             return $app->route('users.list');
