@@ -120,9 +120,9 @@ Essa tabela armazena as contas a receber, que entraram como positivas para o usu
 
 2. **db** - Diretório responsável por guardar as migrações e seeds, para a montagem do banco de dados.
 
-..* **migrations** - Diretório responsável por guardar as migrações, que criam as tabelas de banco de dados do sistema.
+* **migrations** - Diretório responsável por guardar as migrações, que criam as tabelas de banco de dados do sistema.
 
-..* **seeds** - Diretório que armazena as seeds, responsáveis por popular as tabelas com dados de teste.
+* **seeds** - Diretório que armazena as seeds, responsáveis por popular as tabelas com dados de teste.
 
 3. **docs** - Diretório que armazena os documentos usados no projeto.
 
@@ -130,23 +130,23 @@ Essa tabela armazena as contas a receber, que entraram como positivas para o usu
 
 5. **src** - Diretório que armazena o core do projeto.
 
-..* **Auth** - Diretório que contém a lógica de autenticação do sistema. Para essa configuração é usado a biblioteca [Jasny\Auth](https://github.com/jasny/auth).
+* **Auth** - Diretório que contém a lógica de autenticação do sistema. Para essa configuração é usado a biblioteca [Jasny\Auth](https://github.com/jasny/auth).
 
-..* **Models** - Diretório responsável por guardar os modelos do sistema, que são os mappers das tabelas. Nele é usado o ORM [Eloquent](https://github.com/illuminate/database).
+* **Models** - Diretório responsável por guardar os modelos do sistema, que são os mappers das tabelas. Nele é usado o ORM [Eloquent](https://github.com/illuminate/database).
 
-..* **Plugins** - Diretório que armazena os serviços que serão adicionados no container.
+* **Plugins** - Diretório que armazena os serviços que serão adicionados no container.
 
-..* **Repository** - Diretório que armazena os repositórios do sistema. Nele são usados os modelos e servem para armazenar as regras de negócio.
+* **Repository** - Diretório que armazena os repositórios do sistema. Nele são usados os modelos e servem para armazenar as regras de negócio.
 
-..* **View** - Diretório de configuração para o renderizador de templates [Twig](https://twig.symfony.com/).
+* **View** - Diretório de configuração para o renderizador de templates [Twig](https://twig.symfony.com/).
 
-..* **controllers** - Diretório que armazena as rotas de acesso da aplicação. Nele é usado a biblioteca [Aura/Router](https://github.com/auraphp/Aura.Router).
+* **controllers** - Diretório que armazena as rotas de acesso da aplicação. Nele é usado a biblioteca [Aura/Router](https://github.com/auraphp/Aura.Router).
 
-..* **ServiceContainer** - Arquivo de configuração para o container de serviço. Nele é usado a biblioteca [Pimple](https://pimple.symfony.com/).
+* **ServiceContainer** - Arquivo de configuração para o container de serviço. Nele é usado a biblioteca [Pimple](https://pimple.symfony.com/).
 
-..* **helpers** - Arquivo com algumas funções de apoio para a aplicação.
+* **helpers** - Arquivo com algumas funções de apoio para a aplicação.
 
-..* **Application** - Arquivo que serve para inicializar a aplicação.
+* **Application** - Arquivo que serve para inicializar a aplicação.
 
 6. **templates** - Diretório que armazena as views do sistema.
 
