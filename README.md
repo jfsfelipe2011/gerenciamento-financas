@@ -22,12 +22,12 @@ Depois das devidas permissões, basta executar o arquivo de instalação, com o 
 Deixo como dica rodar o container chamado [docker-hosts-updater](https://github.com/grachevko/docker-hosts-updater) que faz a atualização do arquivo de hosts do seu computador, para apontar o IP do container para o seu nome do host. Caso você não tenha esse container, você terá que mapear ele de forma manual em seu arquivo de hosts. Para isso execute os comando: 
 
 ```shell 
-docker inspect --format={{.NetworkSettings.Networks.creditos.IPAddress}}
+docker inspect --format={{.NetworkSettings.Networks.creditos.IPAddress}} gerenciador-financas
 ```
 E anote o ip que foi informado. Depois insira a linha a abaixo em seus hosts:
 
 ```shell
-seu_ip      creditos-web
+seu_ip      gerenciador-financas
 ```
 
 Fique atento ao container de nome ```gerenciador-financas-composer```, pois ele é responsável por instalar as dependencias do projeto. Para isso você pode analisa-lo com o seguinte comando:
